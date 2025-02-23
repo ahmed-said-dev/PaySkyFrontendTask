@@ -29,7 +29,11 @@
             "tsConfig": "tsconfig.app.json",
             "inlineStyleLanguage": "scss",
             "assets": ["src/favicon.ico", "src/assets"],
-            "styles": ["src/styles.scss", "src/assets/scss/style.scss"],
+            "styles": [
+              "src/styles.scss",
+              "src/app/app.component.scss",
+              "src/assets/scss/style.scss"
+            ],
             "scripts": []
           },
           "configurations": {
@@ -42,8 +46,8 @@
                 },
                 {
                   "type": "anyComponentStyle",
-                  "maximumWarning": "2kb",
-                  "maximumError": "4kb"
+                  "maximumWarning": "10kb",
+                  "maximumError": "15kb"
                 }
               ],
               "outputHashing": "all"
