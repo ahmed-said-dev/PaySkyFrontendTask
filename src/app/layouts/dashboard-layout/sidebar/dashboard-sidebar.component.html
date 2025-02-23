@@ -1,0 +1,33 @@
+<div class="sidebar" [class.collapsed]="isCollapsed">
+  <!-- Logo -->
+  <div class="sidebar-header">
+    <img src="https://paysky.io/wp-content/uploads/2023/12/Paysky-logo.png" [class.small]="isCollapsed" alt="PaySky Logo" class="logo">
+  </div>
+
+  <!-- Navigation Menu -->
+  <nav class="sidebar-nav">
+    <ng-container *ngFor="let item of menuItems">
+      <!-- Menu Item -->
+      <div class="menu-item" 
+           [routerLinkActive]="'active'" 
+           [routerLink]="item.link"
+           [routerLinkActiveOptions]="{exact: true}">
+        <div class="menu-item-content">
+          <fa-icon [icon]="item.icon" class="menu-icon"></fa-icon>
+          <span class="menu-title" [class.hidden]="isCollapsed">{{ item.title }}</span>
+        </div>
+      </div>
+    </ng-container>
+  </nav>
+
+  <!-- Footer -->
+  <div class="sidebar-footer" [class.collapsed]="isCollapsed">
+    <div class="user-info">
+      <img src="/assets/images/profile/user-1.jpg" alt="User" class="user-avatar">
+      <div class="user-details" [class.hidden]="isCollapsed">
+        <h4>John Doe</h4>
+        <p>Administrator</p>
+      </div>
+    </div>
+  </div>
+</div>

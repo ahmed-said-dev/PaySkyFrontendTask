@@ -1,0 +1,61 @@
+<mat-toolbar class="dashboard-header mat-elevation-z2">
+  <!-- Left side -->
+  <div class="header-left">
+    <button mat-icon-button (click)="toggleMobileNav.emit()" *ngIf="!showToggle">
+      <fa-icon [icon]="faBars"></fa-icon>
+    </button>
+    <img src="https://paysky.io/wp-content/uploads/2023/12/Paysky-logo.png" alt="PaySky Logo" class="header-logo">
+  </div>
+
+  <!-- Right side -->
+  <div class="header-right">
+    <!-- Notifications -->
+    <button mat-icon-button [matMenuTriggerFor]="notificationsMenu" class="notification-btn">
+      <div class="notification-icon">
+        <fa-icon [icon]="faBell"></fa-icon>
+        <span class="notification-badge">3</span>
+      </div>
+    </button>
+    <mat-menu #notificationsMenu="matMenu" class="notifications-menu">
+      <div class="notification-header">
+        <h3>Notifications</h3>
+        <button mat-button color="primary">Mark all as read</button>
+      </div>
+      <mat-divider></mat-divider>
+      <button mat-menu-item *ngFor="let i of [1,2,3]">
+        <fa-icon [icon]="faCircleInfo" class="menu-icon"></fa-icon>
+        <span>Notification {{i}}</span>
+      </button>
+    </mat-menu>
+
+    <!-- Profile -->
+    <button mat-button [matMenuTriggerFor]="profileMenu" class="profile-btn">
+      <img src="/assets/images/profile/user-1.jpg" class="profile-image" alt="Profile">
+      <span class="profile-name">John Doe</span>
+      <fa-icon [icon]="faChevronDown"></fa-icon>
+    </button>
+    <mat-menu #profileMenu="matMenu" class="profile-menu">
+      <div class="profile-header">
+        <img src="/assets/images/profile/user-1.jpg" class="profile-menu-image" alt="Profile">
+        <div class="profile-info">
+          <h4>John Doe</h4>
+          <p>john.doe&#64;example.com</p>
+        </div>
+      </div>
+      <mat-divider></mat-divider>
+      <button mat-menu-item>
+        <fa-icon [icon]="faUser" class="menu-icon"></fa-icon>
+        <span>My Profile</span>
+      </button>
+      <button mat-menu-item>
+        <fa-icon [icon]="faGear" class="menu-icon"></fa-icon>
+        <span>Settings</span>
+      </button>
+      <mat-divider></mat-divider>
+      <button mat-menu-item (click)="logout()">
+        <fa-icon [icon]="faRightFromBracket" class="menu-icon"></fa-icon>
+        <span>Logout</span>
+      </button>
+    </mat-menu>
+  </div>
+</mat-toolbar>

@@ -1,0 +1,25 @@
+.product-form {
+    display: flex;
+    flex-direction: column;
+    padding: 1rem;
+    gap: 16px; /* Space between form fields */
+    max-width: 400px; /* Optional: limit width for better layout */
+    margin: auto; /* Center the form */
+  }
+  
+  @media (min-width: 600px) {
+    .product-form {
+      flex-direction: row;
+      flex-wrap: wrap;
+    }
+    
+    .product-form mat-form-field, .product-form .button-row {
+      flex: 1 1 45%; /* Adjust field size for larger screens */
+      margin: 8px; /* Space between fields */
+    }
+  }
+  :host {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }

@@ -1,0 +1,47 @@
+<form [formGroup]="productForm" (ngSubmit)="onSubmit()" class="product-form">
+  <mat-form-field appearance="outline">
+    <mat-label>Title</mat-label>
+    <input matInput formControlName="title" required />
+    @if(productForm.get('title')?.hasError('required')){
+    <mat-error>Title is required.</mat-error>}
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <mat-label>Price</mat-label>
+    <input matInput formControlName="price" type="number" required />
+    @if(productForm.get('price')?.hasError('required')){
+    <mat-error>Price is required.</mat-error>}
+    @if(productForm.get('price')?.hasError('min')){
+    <mat-error>Price must be positive.</mat-error>}
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <mat-label>Description</mat-label>
+    <textarea matInput formControlName="description"></textarea>
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <mat-label>Category</mat-label>
+    <mat-select formControlName="category" required>
+      <mat-option>-- Select One Category --</mat-option>
+      @for (category of categories; track category) {
+
+      <mat-option [value]="category">{{ category }}</mat-option
+      >}
+    </mat-select>
+    @if(productForm.get('category')?.hasError('required')){
+    <mat-error>Category is required.</mat-error>}
+  </mat-form-field>
+
+  <div class="button-row d-flex justify-content-around">
+    <button
+      mat-raised-button
+      color="primary"
+      type="submit"
+      [disabled]="productForm.invalid || !productForm.dirty"
+    >
+      {{ add_update_status ? "Add" : "Update" }}
+    </button>
+    <button mat-button type="button" (click)="close()">Cancel</button>
+  </div>
+</form>

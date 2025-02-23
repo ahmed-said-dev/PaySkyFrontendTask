@@ -1,0 +1,31 @@
+<div class="categories-container">
+  <div class="page-header">
+    <h1>Product Categories</h1>
+    <p>Browse our product categories</p>
+  </div>
+
+  <div class="categories-grid">
+    <div class="category-card" *ngFor="let category of categories; let i = index">
+      <div class="category-icon">
+        <fa-icon [icon]="getCategoryIcon(category)" [style.color]="getCategoryColor(category)"></fa-icon>
+      </div>
+      <div class="category-content">
+        <h3>{{ category | titlecase }}</h3>
+        <span class="category-count">{{ i + 1 }}</span>
+      </div>
+      <div class="category-footer">
+        <button mat-button color="primary" [routerLink]="['/dashboard/products']" [queryParams]="{category: category}">
+          <span>View Products</span>
+          <fa-icon [icon]="faArrowRight" class="arrow-icon"></fa-icon>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Empty State -->
+  <div class="empty-state" *ngIf="categories.length === 0">
+    <fa-icon [icon]="faBoxOpen"></fa-icon>
+    <h2>No Categories Found</h2>
+    <p>There are no product categories available at the moment.</p>
+  </div>
+</div>

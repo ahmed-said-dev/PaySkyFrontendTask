@@ -1,0 +1,81 @@
+<div class="products-container">
+  <!-- Header -->
+  <div class="page-header">
+    <div class="header-content">
+      <h1 class="page-title">Products</h1>
+      <button mat-flat-button color="primary" class="add-button" (click)="openProductDialog(undefined)">
+        <fa-icon [icon]="faPlus"></fa-icon>
+        Add Product
+      </button>
+    </div>
+    
+    <!-- Search Bar -->
+    <div class="search-container">
+      <mat-form-field appearance="outline" class="search-field">
+        <form [formGroup]="searchForm">
+          <input matInput formControlName="searchTerm" placeholder="Search products...">
+        </form>
+        <div class="search-suffix">
+          <fa-icon [icon]="faSearch"></fa-icon>
+        </div>
+      </mat-form-field>
+    </div>
+  </div>
+
+  <!-- Products Grid -->
+  <div class="products-grid">
+    <mat-card class="product-card" *ngFor="let product of filteredProducts; trackBy: trackById">
+      <!-- Product Image -->
+      <div class="product-image">
+        <img [lazyLoad]="product.image" 
+             [defaultImage]="'https://archive.smashing.media/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/43b892a2-9859-4905-be03-384c222c1f17/excerpt-lazy-load.png'"
+             [alt]="product.title">
+        <div class="product-actions">
+          <button mat-icon-button color="primary" (click)="openProductDialog(product)">
+            <fa-icon [icon]="faPencilAlt"></fa-icon>
+          </button>
+          <button mat-icon-button color="warn" (click)="openDialog(product)">
+            <fa-icon [icon]="faTrash"></fa-icon>
+          </button>
+        </div>
+      </div>
+
+      <!-- Product Content -->
+      <mat-card-content>
+        <div class="product-info">
+          <h2 class="product-title">{{ product.title }}</h2>
+          <p class="product-description">{{ product.description }}</p>
+          
+          <div class="product-details">
+            <div class="price-tag">
+              <span class="currency">$</span>
+              <span class="amount">{{ product.price }}</span>
+            </div>
+            
+            <div class="category-badge" [ngStyle]="{'background-color': getCategoryColor(product.category)}">
+              {{ product.category }}
+            </div>
+          </div>
+
+          <div class="rating-container">
+            <div class="rating-stars">
+              <fa-icon 
+                *ngFor="let star of [1,2,3,4,5]" 
+                [icon]="star <= product.rating.rate ? faStarSolid : faStarRegular"
+                [class.filled]="star <= product.rating.rate">
+              </fa-icon>
+            </div>
+            <span class="rating-value">{{ product.rating.rate }}/5</span>
+          </div>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+
+  <!-- Empty State -->
+  <div class="empty-state" *ngIf="filteredProducts.length === 0">
+    <fa-icon [icon]="faBox"></fa-icon>
+    <h2>No Products Found</h2>
+    <p>Try adjusting your search or add a new product</p>
+  </div>
+</div>

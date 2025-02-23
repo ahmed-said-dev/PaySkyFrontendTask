@@ -1,0 +1,119 @@
+<div class="background-shapes">
+  <div class="shape"></div>
+  <div class="shape"></div>
+  <div class="shape"></div>
+  <div class="shape"></div>
+</div>
+
+<div class="login-container">
+  <mat-card class="login-card" @fadeInUp>
+    <div class="card-header">
+      <div class="logo-container">
+        <img
+          src="https://paysky.io/wp-content/uploads/2023/12/Paysky-logo.png"
+          alt="PaySky Logo"
+          class="logo-image"
+        />
+      </div>
+      <h1 class="welcome-text">Welcome Back!</h1>
+      <p>Sign in to continue to PaySky</p>
+    </div>
+
+    <form class="form-container" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+      <mat-form-field class="form-field" appearance="outline">
+        <mat-label>Username</mat-label>
+        <mat-icon matPrefix>
+          <fa-icon [icon]="userIcon"></fa-icon>
+        </mat-icon>
+        <input
+          matInput
+          formControlName="username"
+          placeholder="Enter your username"
+          autocomplete="username"
+        />
+        <mat-error *ngIf="loginForm.get('username')?.invalid">
+          {{ getFormFieldError('username') }}
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field class="form-field" appearance="outline">
+        <mat-label>Password</mat-label>
+        <mat-icon matPrefix>
+          <fa-icon [icon]="lockIcon"></fa-icon>
+        </mat-icon>
+        <input
+          matInput
+          [type]="isPasswordHidden ? 'password' : 'text'"
+          formControlName="password"
+          placeholder="Enter your password"
+          autocomplete="current-password"
+        />
+        <button
+          mat-icon-button
+          matSuffix
+          type="button"
+          (click)="isPasswordHidden = !isPasswordHidden"
+          [attr.aria-label]="'Hide password'"
+          [attr.aria-pressed]="isPasswordHidden"
+          class="icon-button"
+        >
+          <fa-icon [icon]="isPasswordHidden ? hidePasswordIcon : showPasswordIcon"></fa-icon>
+        </button>
+        <mat-error *ngIf="loginForm.get('password')?.invalid">
+          {{ getFormFieldError('password') }}
+        </mat-error>
+      </mat-form-field>
+
+      <div class="remember-forgot">
+        <mat-checkbox color="primary" class="remember-me">
+          <span class="checkbox-label">
+            Remember me
+          </span>
+        </mat-checkbox>
+        <a href="#" class="forgot-password">
+          <fa-icon [icon]="helpIcon" class="link-icon"></fa-icon>
+          Forgot password?
+        </a>
+      </div>
+
+      <button
+        mat-flat-button
+        color="primary"
+        class="login-button"
+        type="submit"
+        [disabled]="loginForm.invalid || isLoading"
+      >
+        <fa-icon *ngIf="!isLoading" [icon]="loginIcon" class="button-icon"></fa-icon>
+        <mat-spinner
+          *ngIf="isLoading"
+          diameter="24"
+          class="button-spinner"
+        ></mat-spinner>
+        <span class="button-text">{{ isLoading ? 'Signing in...' : 'Sign In' }}</span>
+      </button>
+
+      <div class="divider">
+        <span>or continue with</span>
+      </div>
+
+      <div class="social-login">
+        <button mat-stroked-button class="social-button google" type="button">
+          <img src="assets/images/social/google.svg" alt="Google" />
+          Google
+        </button>
+        <button mat-stroked-button class="social-button facebook" type="button">
+          <img src="assets/images/social/facebook.svg" alt="Facebook" />
+          Facebook
+        </button>
+      </div>
+
+      <div class="signup-link">
+        <span>Don't have an account?</span>
+        <a routerLink="/auth/register" class="register-link">
+          <fa-icon [icon]="registerIcon" class="link-icon"></fa-icon>
+          Register
+        </a>
+      </div>
+    </form>
+  </mat-card>
+</div>
